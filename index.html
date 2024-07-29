@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Bar</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f3f3f3;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+        }
+
+        .progress-container {
+            position: relative;
+            width: 80%;
+            height: 30px;
+            background-color: #ddd;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            position: absolute;
+            height: 100%;
+            width: 0;
+            background-color: #4caf50;
+            border-radius: 15px;
+            transition: width 0.5s;
+        }
+
+        .progress-stage {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 25%;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        #stage-1 { left: 0; }
+        #stage-2 { left: 25%; }
+        #stage-3 { left: 50%; }
+        #stage-4 { left: 75%; }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+        <div class="progress-stage" id="stage-1">html</div>
+        <div class="progress-stage" id="stage-2">css</div>
+        <div class="progress-stage" id="stage-3">javascript</div>
+        <div class="progress-stage" id="stage-4">java</div>
+    </div>
+    <button id="next-stage">Next Stage</button>
+
+    <script>
+        $(document).ready(function() {
+            let currentStage = 0;
+            const stages = 4;
+            
+            $("#next-stage").click(function() {
+                if (currentStage < stages) {
+                    currentStage++;
+                    const progressPercentage = (currentStage / stages) * 100;
+                    $("#progress-bar").css("width", progressPercentage + "%");
+                    
+                    $(".progress-stage").each(function(index) {
+                        if (index < currentStage) {
+                            $(this).css("background-color", "#4caf50");
+                        } else {
+                            $(this).css("background-color", "#ddd");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
